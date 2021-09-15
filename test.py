@@ -7,8 +7,8 @@ user_choice = input("Что выбрать? ")
 
 if user_choice == "1":
 	print("По первой")
-	print("1 - ")
-	print("2 - ")
+	print("1 - хорошая концовка")
+	print("2 - плохая концовка")
 	user_choice = input("Что выбрать? ")
 	if user_choice == "1":
 		print("Илья Муромец убил всех разбойников")
@@ -19,8 +19,8 @@ if user_choice == "1":
 
 elif user_choice == "2":
 	print("По второй")
-	print("1 - ")
-	print("2 - ")
+	print("1 - хорошая концовка")
+	print("2 - плохая концовка")
 	user_choice = input("Что выбрать? ")
 	if user_choice == "1":
 		print("Илья Муромец женился на прекрасной даме и жил счастливо ")
@@ -30,8 +30,8 @@ elif user_choice == "2":
 		print("ERROR")
 elif user_choice == "3":
 	print("По третьей")
-	print("1 - ")
-	print("2 - ")
+	print("1 - хорошая концовка")
+	print("2 - плохая концовка")
 	user_choice = input("Что выбрать? ")
 	if user_choice == "1":
 		print("Разбогател Илья Муромец и отдал всё в казну.")

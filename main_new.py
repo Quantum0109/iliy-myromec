@@ -3,7 +3,6 @@ import random
 
 
 user_name = "Вася"
-user_money = 5000
 
 
 
@@ -49,33 +48,41 @@ def show_location_casino():
         os.system("cls")
         show_location_casino()
     else:
-        show_gamble()
+        show_play_dice(user_money)
 
 
-def show_gamble():
-    global user_money
-    user_dice = random.randint(2, 12)
-    casino_dice = random.randint(2, 12)
-    print(f"Вы бросили кости, выпало {user_dice}")
-    print(f"Казино кости, выпало {casino_dice}")
-    if user_dice > casino_dice:
-        user_money += 100
-        print("Вы победили")
-        print(user_money)
-    elif user_dice < casino_dice:
-        user_money -= 200
-        print("Вы проиграли")
-        print(user_money)
+def show_play_dice(user_money: int) -> int :
+    bet = int(input("Сколько поставить? "))
+    if bet > user_money:
+        show_play_dice()
+    elif bet <= 0 : 
+        print("не может быть")
+        show_play_dice(user_money)
     else:
-        print("Ничья")
-        user_money -= 100
-        print(user_money)
-    input("Нажмите ENTER чтобы вернуться в казино")
-    show_location_casino()
+        user_dice = random.randint(2, 12)
+        casino_dice = random.randint(2, 12)
+        print(f"Вы бросили кости, выпало {user_dice}")
+        print(f"Казино кости, выпало {casino_dice}")
+    
+        if user_dice > casino_dice:
+            print("Вы победили")
+            user_money += bet
+        elif user_dice < casino_dice:
+            print("Вы проиграли")
+            user_money -= bet
+        else:
+            print("Ничья")
+        print("Теперь у вас", user_money, "денег")
+        input("Нажмите ENTER чтобы вернуться в казино")
+        show_location_casino()
 
-    show_location_home()
-
-
-
-
+        show_location_home()
+        return user_money
+user_money = 5000
 show_location_home()
+
+
+
+
+
+

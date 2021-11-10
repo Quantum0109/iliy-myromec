@@ -17,6 +17,7 @@ def show_location_shop(user_name: str, user_money: int, user_inventory: list):
 		while user_choise not in ("1", "2"):
 			user_choise = input("Что будем делать")
 		if user_choise == "1" and user_money >= potion_prise:
+			user_money -= potion_prise
 			print(f"{user_name} купили зедье")
 		elif user_choise == "1" and user_money < potion_prise:
 			print (f"{user_name} не хавтило денег")

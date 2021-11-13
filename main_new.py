@@ -1,5 +1,6 @@
 import os
 import random
+import inventory
 
 
 user_name = "Вася"
@@ -80,9 +81,3 @@ def show_play_dice(user_money: int) -> int :
         return user_money
 user_money = 5000
 show_location_home()
-
-
-
-
-
-

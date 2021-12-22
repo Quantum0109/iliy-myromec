@@ -12,14 +12,18 @@ import gamble  # модуль игры в кости
 import arena  # модуль битвы на арене
 import adventure  # модуль поиска приключений
 import show_player # модуль печатает все параметы игрока
-import save_game # модуль сохранения игры
+import save_load  # модуль сохранения и загрузки игры
+import os.path  # для проверки, есть ли файл
 
 # создаем персонажа
-user_name = "Вася Питонов"
-user_money = 200
-user_hp = 100
-user_luck = 1
-user_inventory = ["меч", "щит", "конь"]
+
+user = {
+	"имя": "Вася Питонов",
+	"деньги": 200,
+	"жизни": 100,
+	"удача": 1,
+	"инвентарь": ["меч", "щит", "конь"]
+}
 
 # главный цикл игры
 # заканчивается с гибелью игрока или выходоми из игры
@@ -28,43 +32,48 @@ while game:
     # печатаем инфу о месте и игроке
     # предлагаем игроку выбор действий
     os.system("cls")
-    show_player.show(user_name, user_money, user_hp, user_luck, user_inventory, game)
-    print(f"{user_name} сидит у костра в лагере. Отсюда можно отправиться в разные места.")
+    show_player.show(user)
+    print(f"{user['имя']} сидит у костра в лагере. Отсюда можно отправиться в разные места.")
     print("1 — Зайти в лавку к алхимику")
     print("2 — Сыграть с разбойниками в кости")
     print("3 — Побродить по окрестностям")
     print("4 — Сразиться на арене")
-    print("5 — Выйти из игры")
-    print("6 - Сохранить игру")
+    print("5 — Сохранить игру")
+    if os.path.isfile("save"):
+        print("6 — Загрузить игру")
+    print("0 — Выйти из игры")
 
     # игрок выбирает вариант
     user_choice = input("Что делать? ")
 
     # вариант: идем за зельями
     if user_choice == "1":
-        result = shop.show_location(user_name, user_money, user_hp, user_luck, user_inventory, game)
-        user_money = result
+        shop.show_location(user)
 
     # вариант: играем в кости
     elif user_choice == "2":
-        result = gamble.show_location(user_name, user_money, user_hp, user_luck, user_inventory, game)
-        user_money = result
+        gamble.show_location(user)
+        
 
     # вариант: ищем приключения
     elif user_choice == "3":
-        adventure.show_location(user_name, user_money, user_hp, user_luck, user_inventory, game)
+        adventure.show_location(user, game)
 
     # вариант: сражаемся на арене
     elif user_choice == "4":
-        arena.show_location(user_name, user_money, user_hp, user_luck, user_inventory, game)
+        arena.show_location(user, game)
+
+    # сохраняем игру
+    elif user_choice == "5":
+        save_load.save(user)
+    
+    # загрузить игру
+    elif user_choice == "6" and os.path.isfile("save"):
+        save_load.load(user)
 
     # вариант: выходим из игры
-    elif user_choice == "5":
+    elif user_choice == "0":
         game = False
-    
-    #сохраняем игру
-    elif user_choice == "6":
-       save_game.save(user_name, user_money, user_hp, user_luck, user_inventory, game)
 
     # все остальные варианты
     else:
